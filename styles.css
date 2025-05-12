@@ -46,3 +46,25 @@ input {
     display: none;
     margin-bottom: 10px;
 }
+
+#results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+#results div {
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+    #results {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+}

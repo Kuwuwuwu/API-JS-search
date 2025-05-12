@@ -16,35 +16,47 @@ async function fetchMovies(query) {
     return data.Search; 
   } catch (error) {
     console.error('Помилка запиту:', error.message);
+    showError(error.message);
     return [];
   }
-}
-
-
-document.getElementById('searchInput').addEventListener('input', async (event) => {
-  const query = event.target.value.trim();
   
-  const movies = await fetchMovies(query);
-  displayResults(movies);
-});
+  }
 
-function displayResults(movies) {
-  const resultsContainer = document.getElementById('results');
-  resultsContainer.innerHTML = ''; 
 
-  movies.forEach(movie => {
-    const movieElement = document.createElement('div');
-    movieElement.innerHTML = `
+
+let debounceTimeout;
+document.getElementById('searchInput').addEventListener('input', (event) => {
+  clearTimeout(debounceTimeout);
+  const query = event.target.value.trim();
+
+  debounceTimeout = setTimeout(async () => {
+    if (query.length > 2) {
+      const movies = await fetchMovies(query);
+      displayResults(movies);
+    } else {
+      displayResults([]);
+    }
+  }, 500);
+
+
+  function displayResults(movies) {
+    const resultsContainer = document.getElementById('results');
+    resultsContainer.innerHTML = '';
+
+    movies.forEach(movie => {
+      const movieElement = document.createElement('div');
+      movieElement.innerHTML = `
       <img src="${movie.Poster}" alt="${movie.Title}">
       <p><strong>${movie.Title}</strong> (${movie.Year})</p>
     `;
-    resultsContainer.appendChild(movieElement);
-  });
-}
+      resultsContainer.appendChild(movieElement);
+    });
+  }
 
 
-function showError(message) {
-  const errorBox = document.getElementById('errorBox');
-  errorBox.textContent = message;
-  errorBox.style.display = 'block';
-}
+  function showError(message) {
+    const errorBox = document.getElementById('errorBox');
+    errorBox.textContent = message;
+    errorBox.style.display = 'block';
+  }
+});
