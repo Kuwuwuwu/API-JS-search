@@ -1,5 +1,5 @@
 async function fetchMovies(query) {
-  const apiKey = 'YOUR_API_KEY'; // Замініть на ваш API-ключ
+  const apiKey = 'YOUR_API_KEY'; 
   const url = `https://www.omdbapi.com/?s=${query}&apikey=${apiKey}`;
 
   try {
@@ -13,7 +13,7 @@ async function fetchMovies(query) {
       throw new Error(data.Error);
     }
 
-    return data.Search; // Масив знайдених фільмів
+    return data.Search; 
   } catch (error) {
     console.error('Помилка запиту:', error.message);
     return [];
@@ -24,15 +24,13 @@ async function fetchMovies(query) {
 document.getElementById('searchInput').addEventListener('input', async (event) => {
   const query = event.target.value.trim();
   
-  if (query.length < 3) return; // Запобігаємо зайвим запитам
-  
   const movies = await fetchMovies(query);
   displayResults(movies);
 });
 
 function displayResults(movies) {
   const resultsContainer = document.getElementById('results');
-  resultsContainer.innerHTML = ''; // Очищуємо попередні результати
+  resultsContainer.innerHTML = ''; 
 
   movies.forEach(movie => {
     const movieElement = document.createElement('div');
