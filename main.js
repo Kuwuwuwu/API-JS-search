@@ -41,17 +41,18 @@ document.getElementById('searchInput').addEventListener('input', (event) => {
 
   function displayResults(movies) {
     const resultsContainer = document.getElementById('results');
-    resultsContainer.innerHTML = '';
-
+    resultsContainer.innerHTML = ''; 
+  
     movies.forEach(movie => {
       const movieElement = document.createElement('div');
       movieElement.innerHTML = `
-      <img src="${movie.Poster}" alt="${movie.Title}">
-      <p><strong>${movie.Title}</strong> (${movie.Year})</p>
-    `;
+        <img src="${movie.Poster !== 'N/A' ? movie.Poster : 'placeholder.jpg'}" alt="${movie.Title}">
+        <p><strong>${movie.Title}</strong> (${movie.Year})</p>
+      `;
       resultsContainer.appendChild(movieElement);
     });
   }
+  
 
 
   function showError(message) {
