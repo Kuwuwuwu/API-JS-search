@@ -1,6 +1,5 @@
-async function fetchMovies(query) {
-  const apiKey = 'YOUR_API_KEY'; 
-  const url = `https://www.omdbapi.com/?s=${query}&apikey=${apiKey}`;
+async function fetchMovies(query) { 
+  const apiKey = 'abcdef12';
 
   try {
     const response = await fetch(url);
